@@ -1,6 +1,7 @@
 import logging
 import pandas as pd
 import pickle
+import os
 from sklearn.ensemble import RandomForestClassifier
 
 # TODO: ADD Loggers
@@ -9,7 +10,9 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 def load(filename):
-    pickle_in = open(filename, "rb")
+    basedir = os.path.dirname(__file__)
+    model_path = os.path.join(basedir, 'models/'+filename)
+    pickle_in = open(model_path, "rb")
     return pickle.load(pickle_in)
 
 

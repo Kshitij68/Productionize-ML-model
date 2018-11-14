@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 
+# ADD TRAINING SET
 # TODO: ADD Loggers
 # TODO: Add Unit Tests for all functions
 # TODO: Add PCA
