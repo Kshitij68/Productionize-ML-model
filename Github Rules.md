@@ -4,7 +4,7 @@ git config user.name <username>
 git config usre.email <emailID>
 git config credential.helper store
 
-git push https://github.com/Kshitij68/Data-Related-Talks.git
+git push https://github.com/Kshitij68/Productionize-ML-model.git
 
 It might ask for username and password
 
