@@ -13,3 +13,12 @@ View this [link](https://stackoverflow.com/questions/19071512/socket-error-errno
 
 ## TODO: 
 - Research on how good pandas are in Production Environment
+- Get all the files from the Jupyter Notebook
+- Add Jupyter Notebook in the gitignore
+- Write Production Level prediction Code (with Docstrings) without Pandas
+- Write Production Level training code (with Docstrings) without Pandas
+
+Some helpful links
+- [Crete HTML form and insert data into database](https://www.c-sharpcorner.com/UploadFile/52bd60/create-an-html-form-and-insert-data-into-database162/)
+- [Create a student registration form](https://www.roseindia.net/html/how-to-create-student-registration-form-with-html-code.shtml)
+- [Create a web design](https://www.oreilly.com/library/view/learning-web-design/9781449337513/ch04.html)
