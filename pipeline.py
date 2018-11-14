@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import jsonify
-from predict import get_probability
+from ml.predict import get_probability
 
 app = Flask(__name__)
 
