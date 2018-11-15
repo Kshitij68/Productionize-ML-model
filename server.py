@@ -11,8 +11,8 @@ def hello():
 
 @app.route('/predict', methods=['POST', 'GET'])
 def predict():
-    if request.method == "POST":
-        return render_template('index.html')
+    if request.method == "GET":
+        return render_template('predict.html')
     else:
         data = {
             'PassengerId': 891,
