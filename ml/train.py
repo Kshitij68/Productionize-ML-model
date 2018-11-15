@@ -162,4 +162,3 @@ def load_training_data(path):
 #     train_x, train_y = load_training_data(path)
 #     train = drop_values(train_x,['PassengerId', 'Cabin', 'Ticket'])
 #     train = get_median()
-#     train =
