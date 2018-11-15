@@ -1,6 +1,9 @@
 import logging
 import pandas as pd
 import pickle
+import os
+import csv
+from ml.feature_engineering import drop_values
 from sklearn.ensemble import RandomForestClassifier
 
 # ADD TRAINING SET
@@ -12,29 +15,6 @@ from sklearn.ensemble import RandomForestClassifier
 def load(filename):
     pickle_in = open(filename, "rb")
     return pickle.load(pickle_in)
-
-
-def get_age_bins(age):
-    if age <= 20:
-        return 1
-    elif 20 < age <= 30:
-        return 2
-    elif 30 < age <= 45:
-        return 3
-    else:
-        return 4
-
-
-def get_fare_bins(fare):
-    if fare <= 15:
-        return 1
-    elif 15 < fare <= 40:
-        return 2
-    elif 40 < fare <= 100:
-        return 3
-    else:
-        return 4
-
 
 def encode_embarked(embarked):
     if embarked == 'S':
@@ -143,8 +123,43 @@ def get_features(features):
     return features
 
 
-def get_probability(values):
-    features = get_features(values)
-    model = load('random_forest_classifier.sav')
-    results = model.predict(features)
-    return results
+def load_training_data(path):
+    """
+    Load the training data and save it in a list of dictionaries
+    :param path:
+    :return:
+    """
+    basedir = os.path.dirname(__file__)
+    path = os.path.join(basedir,'data/train.csv')
+    csv_file = open(path,'r',newline='',encoding='latin-1')
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    train_x = list()
+    train_y = list()
+    for index,value in enumerate(csv_reader):
+        if index == 0:
+            continue
+        else:
+            train_x.append({
+                'PassengerId': value[0], # Dropped the column
+                'Pclass': value[2], # Null values filled with mode #
+                'Name': value[3], # Raise an error if Null values are entered,
+                'Sex': value[4],
+                'Age': value[5], # Null values filled with mode #
+                'SibSp': value[6],
+                'Parch': value[7],
+                'Ticket': value[8], # Dropped the column
+                'Fare': value[9], # Null values filled with median
+                'Cabin': value[10], # Dropped the column
+                'Embarked': value[11] # Null values filled with mode
+            })
+            train_y.append({
+                'Survived':value[1]
+            })
+    return train_x, train_y
+
+
+# def train(path):
+#     train_x, train_y = load_training_data(path)
+#     train = drop_values(train_x,['PassengerId', 'Cabin', 'Ticket'])
+#     train = get_median()
+#     train =
