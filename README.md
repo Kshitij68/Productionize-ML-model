@@ -6,6 +6,7 @@ If you are not aware of Kaggle Titanic dataset, I suggest you go and checkout th
 
 This project uses Flask and Docker.
 
+
 Common Issues:
 
 - `OS Error: [Errro 99] Address already in use`: Just do `ps -fA | grep python` and kill the processes. 
