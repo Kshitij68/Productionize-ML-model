@@ -8,8 +8,6 @@ def drop_values(data, keys):
                 raise Exception('The dictionary {} does not have key {}'.format(dictionary, key))
             del dictionary[key]
 
-def fill_null_values(data,)
-
 def get_age_bins(age):
     if age <= 20:
         return 1
