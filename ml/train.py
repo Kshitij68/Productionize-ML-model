@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import os
 import csv
-from ml.feature_engineering import drop_values
+from ml.feature_engineering import drop_values,get_age_bins,get_fare_bins
 from sklearn.ensemble import RandomForestClassifier
 
 # ADD TRAINING SET
