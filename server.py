@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template,jsonify
-from ml.predict import get_probability
+from flask import Flask, request, render_template, jsonify
+from ml.titanic import Titanic
 
 app = Flask(__name__)
 
@@ -7,6 +7,11 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     return 'Hello, Do you think you would have survived the Titanic Disaster?'
+
+
+@app.route("/train")
+def train():
+    return render_template('train.html')
 
 
 @app.route('/predict', methods=['POST', 'GET'])
