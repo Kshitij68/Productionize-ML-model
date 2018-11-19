@@ -72,13 +72,21 @@ class Titanic():
         data.close()
 
     @staticmethod
-    def get_stats(data, key, type):
-        values = [value[key] for value in data]
-        if type == 'median':
+    def get_stats(data, key, typ, convert_to_float = False):
+        if convert_to_float:
+            values = list()
+            for value in data:
+                try:
+                    values.append(float(value[key]))
+                except:
+                    logger.info("Unable to convert {} to float, skipping it".format(value[key]))
+        else:
+            values = [value[key] for value in data]
+        if typ == 'median':
             return statistics.median(values)
-        elif type == 'mean':
+        elif typ == 'mean':
             return statistics.mean(values)
-        elif type == 'mode':
+        elif typ == 'mode':
             return statistics.mode(values)
 
     @staticmethod
@@ -141,8 +149,13 @@ class Titanic():
     @staticmethod
     def get_title(string):
         string = str(string)
-        string = string.split(", ", expand=True)[1]
-        string = string.split(".", expand=True)[0]
+        if not len(string):
+            return 'other'
+        string = string.split(", ")
+        if len(string) < 2:
+            return 'other'
+        string = string[1]
+        string = string.split(".")[0]
         if string in ['Mr', 'Miss', 'Mrs', 'Master']:
             return string
         elif string == ['Lady', 'Ms', 'Mlle']:
@@ -182,57 +195,60 @@ class Titanic():
         for dictionary in data:
             keys = dictionary.keys()
             for key in keys:
-                dictionary[key] = float(key)
+                dictionary[key] = float(dictionary[key])
         return data
 
     @staticmethod
     def dict_to_array(data):
-        if len(data):
+        if len(data) and type(data) == list and type(data[0] == dict):
             keys = sorted(list(data[0].keys()))
+        else:
+            return []
         array = list()
         for dictionary in data:
+            arr = list()
             for key in keys:
-                arr = list()
                 arr.append(dictionary[key])
             array.append(arr)
         return array
 
     def save_imputed_values(self,data):
+        path = 'models/'
         self.pclass_mode = self.get_stats(data, 'Pclass', 'mode')
-        self.save('pclass_mode.sav', self.pclass_mode)
+        self.save(path + 'pclass_mode.sav', self.pclass_mode)
 
         self.name = 'Mathur, Mr. Kshitij'
-        self.save('name.sav', self.name)
+        self.save(path + 'name.sav', self.name)
 
         self.sex_mode = self.get_stats(data, 'Sex', 'mode')
-        self.save('sex_mode.sav', self.sex_mode)
+        self.save(path + 'sex_mode.sav', self.sex_mode)
+        self.age_mean = self.get_stats(data, 'Age', 'mean', convert_to_float=True)
+        self.save(path + 'age_mean.sav', self.age_mean)
 
-        self.age_mean = self.get_stats(data, 'Age', 'mean')
-        self.save('age_mean.sav', self.age_mean)
+        self.sibsp_mode = self.get_stats(data, 'SibSp', 'mode', convert_to_float=True)
+        self.save(path + 'sibsp_mode.sav', self.sibsp_mode)
 
-        self.sibsp_mode = self.get_stats(data, 'SibSp', 'mode')
-        self.save('sibsp_mode.sav', self.sibsp_mode)
+        self.parch__mode = self.get_stats(data, 'Parch', 'mode', convert_to_float=True)
+        self.save(path + 'parch_mode.sav', self.parch__mode)
 
-        self.parch__mode = self.get_stats(data, 'Parch', 'mode')
-        self.save('parch_mode.sav', self.parch__mode)
-
-        self.fare_mean = self.get_stats(data, 'Fare', 'mean')
-        self.save('fare_mean.sav', self.fare_mean)
+        self.fare_mean = self.get_stats(data, 'Fare', 'mean', convert_to_float=True)
+        self.save(path + 'fare_mean.sav', self.fare_mean)
 
         self.embarked_mode = self.get_stats(data, 'Embarked', 'mode')
-        self.save('embarked_mode.sav', self.embarked_mode)
+        self.save(path + 'embarked_mode.sav', self.embarked_mode)
 
     def load_imputed_values(self):
-        self.pclass_mode = self.load('pclass_mode.sav')
-        self.name = self.load('name.sav')
-        self.sex_mode = self.load('sex_mode.sav')
-        self.age_mean = self.load('age_mean.sav')
-        self.sibsp_mode = self.load('sibsp_mode.sav')
-        self.parch__mode = self.load('parch_mode.sav')
-        self.fare_mean = self.load('fare_mean.sav')
-        self.embarked_mode = self.load('embarked_mode.sav')
+        path = 'models/'
+        self.pclass_mode = self.load(path + 'pclass_mode.sav')
+        self.name = self.load(path + 'name.sav')
+        self.sex_mode = self.load(path + 'sex_mode.sav')
+        self.age_mean = self.load(path + 'age_mean.sav')
+        self.sibsp_mode = self.load(path + 'sibsp_mode.sav')
+        self.parch__mode = self.load(path + 'parch_mode.sav')
+        self.fare_mean = self.load(path + 'fare_mean.sav')
+        self.embarked_mode = self.load(path + 'embarked_mode.sav')
 
-    def train(self,path):
+    def fit(self, path):
 
         train_x, train_y = self.load_training_data(path)
 
@@ -247,7 +263,7 @@ class Titanic():
 
         rf = RandomForestClassifier()
         rf.fit(train_x, train_y)
-        self.save('model.sav', rf)
+        self.save('models/model.sav', rf)
 
     def get_probability(self, test):
         """
@@ -276,8 +292,12 @@ class Titanic():
         test = self.drop_values(test, ['Embarked', 'Sex', 'Name'])
         test = self.convert_to_float(test)
         test = self.dict_to_array(test)
-        model = self.load('model.sav')
+        model = self.load('models/model.sav')
 
         probability = model.predict_proba(test)
 
         return probability
+
+if __name__ == "__main__":
+    titanic = Titanic()
+    titanic.fit('data/')
