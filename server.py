@@ -9,9 +9,9 @@ def hello():
     return 'Hello, Do you think you would have survived the Titanic Disaster?'
 
 
-@app.route("/train")
+@app.route("/fit")
 def train():
-    return render_template('train.html')
+    return render_template('fit.html')
 
 
 @app.route('/predict', methods=['POST', 'GET'])
@@ -32,9 +32,9 @@ def predict():
             'Cabin':'',
             'Embarked': 'Q',
             }
-        data = get_probability(data).tolist()
+        data = Titanic.get_probability(data)
         response = {
-            'prediction':data
+            'prediction': data
         }
         return jsonify(response)
 
