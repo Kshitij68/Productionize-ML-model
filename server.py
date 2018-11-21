@@ -6,12 +6,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return 'Hello, Do you think you would have survived the Titanic Disaster?'
+    #return 'Hello, Do you think you would have survived the Titanic Disaster?'
+    return render_template('index.html')
 
 
 @app.route("/fit")
 def train():
-    return render_template('fit.html')
+    return render_template('train.html')
 
 
 @app.route('/predict', methods=['POST', 'GET'])
