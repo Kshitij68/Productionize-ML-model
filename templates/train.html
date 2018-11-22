@@ -23,7 +23,9 @@
         <form method="POST" enctype="multipart/form-data">
         <div class="input-group">
             <input type="file" name="test" class="form-control">
-            <span class="input-group-btn"><button type="submit" class="btn btn-primary">Submit</button></span>
+            <span class="input-group-btn">
+                <a href="{{ url_for('train_results') }}" class="btn btn-large btn-warning" style="margin-right: 0.5rem;">Train</a>
+            </span>
         </div>
         </form>
     </div></div>
