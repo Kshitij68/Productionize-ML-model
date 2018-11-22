@@ -67,6 +67,8 @@ class Titanic():
 
     @staticmethod
     def save(filename,file):
+        basedir = os.path.dirname(__file__)
+        filename = os.path.join(basedir, filename)
         data = open(filename, 'wb')
         pickle.dump(file, data)
         data.close()
@@ -248,7 +250,7 @@ class Titanic():
         self.fare_mean = self.load(path + 'fare_mean.sav')
         self.embarked_mode = self.load(path + 'embarked_mode.sav')
 
-    def fit(self, path):
+    def fit(self, path = ''):
 
         train_x, train_y = self.load_training_data(path)
 
