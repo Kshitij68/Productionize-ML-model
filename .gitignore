@@ -12,3 +12,4 @@ notebooks/
 util/__pycache__/
 Github Rules.md
 ./idea
+.pytest_cache
