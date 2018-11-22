@@ -37,9 +37,10 @@ def predict():
     #     }
     #     return jsonify(response)
 
-@app.route('/results')
-def results():
-    return 0
+@app.route('/train_results')
+def train_results():
+    titanic = Titanic().fit()
+    return render_template('train_results.html')
 
 
 if __name__ == "__main__":
