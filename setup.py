@@ -23,5 +23,5 @@ setup(name='titanic',
       install_requires=[
           'pandas==0.23.4',
           'flask==1.0.2',
-          'scikit-learn==0.19.2'
+          'scikit-learn==0.20.0'
       ])
