@@ -61,7 +61,7 @@ class Titanic():
     @staticmethod
     def load(filename):
         basedir = os.path.dirname(__file__)
-        model_path = os.path.join(basedir, 'models/'+filename)
+        model_path = os.path.join(basedir, filename)
         pickle_in = open(model_path, "rb")
         return pickle.load(pickle_in)
 
@@ -130,7 +130,7 @@ class Titanic():
 
     @staticmethod
     def fill(string, imputed_value):
-        if len(string):
+        if len(str(string)):
             return string
         return imputed_value
 
@@ -298,6 +298,10 @@ class Titanic():
 
         return probability
 
-if __name__ == "__main__":
-    titanic = Titanic()
-    titanic.fit('data/')
+
+# if __name__ == "__main__":
+#     titanic = Titanic()
+# #    titanic.fit('data/')
+#     print(titanic.get_probability([{'PassengerId': 1, 'Pclass': 3, 'Name': 'Braund, Mr. Owen Harris', 'Sex': 'male',
+#                                    'Age': 22, 'SibSp': 1, 'Parch': 0, 'Ticket': 'A/5 21171', 'Fare': 7.25, 'Cabin': '',
+#                                     'Embarked': 'S'}]))
