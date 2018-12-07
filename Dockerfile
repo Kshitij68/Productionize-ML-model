@@ -13,7 +13,7 @@ RUN apt-get update
 RUN mkdir /var/log/server
 
 # Make path available
-ENV PYTHONPATH=$PYTHONPATH:/opt/cloudrfp-nlp
+ENV PYTHONPATH=$PYTHONPATH:/opt/ml
 
 # Make `titanic` directory
 RUN mkdir /opt/titanic
