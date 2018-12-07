@@ -14,32 +14,14 @@ def train():
     return render_template('train.html')
 
 
-@app.route('/predict')
+@app.route('/predict',methods = ['POST'])
 def predict():
     return render_template('predict.html')
-    # else:
-    #     data = {
-    #         'PassengerId': 891,
-    #         'Pclass': 3,
-    #         'Name': 'Kelly, Mr.James',
-    #         'Sex':'male',
-    #         'Age':34.5,
-    #         'SibSp':0,
-    #         'Parch':0,
-    #         'Ticket':'330911',
-    #         'Fare':7.82,
-    #         'Cabin':'',
-    #         'Embarked': 'Q',
-    #         }
-    #     data = Titanic.get_probability(data)
-    #     response = {
-    #         'prediction': data
-    #     }
-    #     return jsonify(response)
 
 @app.route('/train_results')
 def train_results():
-    titanic = Titanic().fit()
+    titanic = Titanic()
+    titanic.fit()
     return render_template('train_results.html')
 
 
