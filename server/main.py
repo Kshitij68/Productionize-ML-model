@@ -14,7 +14,7 @@ def train():
     return render_template('train.html')
 
 
-@app.route('/predict',methods = ['POST'])
+@app.route('/predict',methods = ['GET'])
 def predict():
     return render_template('predict.html')
 

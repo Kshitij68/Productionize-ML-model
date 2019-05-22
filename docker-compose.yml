@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+
+  cloudrfp_nlp_server:
+    build:
+      context: .
+      dockerfile: LocalDockerfile
+    volumes:
+      - .:/opt/cloudrfp-nlp
+    environment:
+      - APP_ENVIRONMENT_TYPE=development
+      - ELASTICSEARCH_HOST=es-local
+      - AWS_ENDPOINT_URL=awslocal
+      - AWS_ACCESS_KEY_ID=foobar
+      - AWS_DEFAULT_REGION=us-east-2
+      - AWS_SECRET_ACCESS_KEY=foobar
+      - ELASTICSEARCH_LOGLEVEL=DEBUG
+      - FLASK_APP_PUBLISH_PORT=8763
+    external_links:
+      - awslocal
+      - es-local

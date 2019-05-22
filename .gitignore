@@ -1,15 +1,21 @@
 # Python #
 #############
 
-.idea/Productionize-ML-model.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/workspace.xml
+# Pycharm Cache
+.idea/*
 ml/__pycache__/
+
+# R files
+.Rhistory
+
+# Jupyter Notebooks
 notebooks/Data Exploration an Training .ipynb
 notebooks/
 util/__pycache__/
+
+# Personal Notes
 Github Rules.md
-./idea
+
+# Pytest Cache
 .pytest_cache
+

@@ -18,14 +18,14 @@ ENV PYTHONPATH=$PYTHONPATH:/opt/ml
 # Make `titanic` directory
 RUN mkdir /opt/titanic
 
-# Make temporary downloads directory (Make sure that app config uses TEMP_FILE_DIR set to this value)
-RUN mkdir /tmp/s3-downloads
-
-# Make temporary directory for titanic models
-RUN mkdir /tmp/titanic
-
-# Make directory for titanic python libs
-RUN mkdir -p /opt/libs
+## Make temporary downloads directory (Make sure that app config uses TEMP_FILE_DIR set to this value)
+#RUN mkdir /tmp/s3-downloads
+#
+## Make temporary directory for titanic models
+#RUN mkdir /tmp/titanic
+#
+## Make directory for titanic python libs
+#RUN mkdir -p /opt/libs
 
 # Run command to run flask server
 CMD ["python", "/opt/titanic/server/main.py"]
